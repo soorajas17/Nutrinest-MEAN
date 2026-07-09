@@ -1,0 +1,58 @@
+<app-admin-header></app-admin-header>
+
+<div class="container-fluid p-0" style="overflow-x:hidden;">
+    <div class="row">
+        <div class="col-md-2">
+            <app-admin-sidebar></app-admin-sidebar>
+        </div>
+        <div class="col-md-10 ps-0">
+            <div class="row bg-warning p-3">
+                <h3><i class="fa-solid fa-bars"></i>Request List</h3>
+            </div>
+            <div class="px-5 my-3 table-responsive">
+                <table class="table table-bordered shadow">
+                    <thead>
+                        <tr>
+                            <th class="bg-success text-light">SL:No</th>
+                            <th class="bg-success text-light">User Name</th>
+                            <th class="bg-success text-light">User Email</th>
+                            <th class="bg-success text-light">Message</th>
+                            <th class="bg-success text-light">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (allTestimonials.length>0) {
+                        @for (item of allTestimonials; track $index) {
+                        <tr>
+                            <td>{{$index+1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.message}}</td>
+                            <td class="d-flex p-4">
+                                @if (item.status=="pending") {
+                                <button (click)="updateTestimonials(item._id,'approved')" class="btn btn-success "
+                                    type="button">Approve</button>
+                                <button (click)="updateTestimonials(item._id,'rejected')" class="btn btn-danger ms-2"
+                                    type="button">Reject</button>
+                                }@else {
+                                @if (item.status=="approved") {
+                                <h5 class="text-success">Approved</h5>
+                                }@else {
+                                <h5 class="text-danger">Rejected</h5>
+                                }
+                                }
+
+                            </td>
+                        </tr>
+                        }
+                        }@else {
+                        <h3 class="text-danger">No Requests....</h3>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

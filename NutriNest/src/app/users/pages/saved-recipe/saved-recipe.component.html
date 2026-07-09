@@ -1,0 +1,25 @@
+<app-header></app-header>
+
+<div class="container">
+    <h1>Saved Recipes</h1>
+    <div class="row my-5">
+        @if (savedRecipes.length>0) {
+        @for (item of savedRecipes; track $index) {
+        <div class="col-md-3">
+            <div class="shadow p-4 rounded">
+                <img (click)="viewRecipe(item.recipeId)" class="w-100" [src]="item.image" alt="">
+                <div class="d-flex justify-content-around mt-3">
+                    <p class="text-center">{{item.name}}</p>
+                    <button (click)="deleteASavedRecipe(item._id)" type="button" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+        }@else {
+        <p>No saved items.....</p>
+        }
+    </div>
+
+</div>

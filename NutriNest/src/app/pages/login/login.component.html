@@ -1,0 +1,25 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1 class="text-center my-5">Login</h1>
+            <p class="text-center">More than 100+ recipes around the world.</p>
+            <form class="shadow p-5 mb-5" [formGroup]="loginForm" (ngSubmit)="login()" >
+                <h1 class="mb-5 text-center"> <i class="fa-solid fa-kitchen-set" ></i> Cookepedia</h1>
+                <div class="mb-3">
+                    <input type="text" name="email" formControlName="email" placeholder="email" class="form-control" >
+                    <span class="text-danger" style="font: 12px;" >*Invalid input</span>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="password" formControlName="password" placeholder="password" class="form-control" >
+                    <span class="text-danger" style="font: 12px;" >*Invalid input</span>
+                </div>
+                <div class="mb-5">
+                    <button type="submit" class="btn btn-success w-100" >Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

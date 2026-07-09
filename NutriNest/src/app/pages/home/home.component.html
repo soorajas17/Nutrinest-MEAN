@@ -1,0 +1,83 @@
+<app-header></app-header>
+
+
+<div class="container">
+    <!-- landing section -->
+    <div class="row bg-success py-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 px-5 mt-5">
+            <h1 class="text-light">The Easiest Way <br>
+                To Make Your <br>
+                Favourite Meal</h1>
+            <p class="text-light mt-5">Discover 100+ recipes in your hand with the best recipe.Help you find the easiest
+                way to cook.</p>
+            <button routerLink="/all-recipes" class="btn btn-warning mt-2">Explore Our Recipes</button>
+        </div>
+        <div class="col-md-6">
+            <img class="w-75 ms-5" id="Landing"
+                src="https://th.bing.com/th/id/R.a9caf544e96691b39893bb48c08c65bb?rik=auKFdVTUmlL0cA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fpng-plate-of-food--600.png&ehk=tmQ5jwDlt1f5vC78EN4ZPrzdKs0Cnr7kO0dDVXnwsr0%3d&risl=&pid=ImgRaw&r=0"
+                alt="">
+        </div>
+    </div>
+    <!-- popular -->
+    <div class="row mt-5">
+        <h1>Popular Recipe Of The Week.</h1>
+        <div class="d-flex justify-content-between my-5">
+            <p>Our most recipes of the week</p>
+            <a routerLink="all-recipes">View All</a>
+        </div>
+    </div>
+    <div class="row ">
+
+        @if(homeRecipes.length>0){
+        @for (item of homeRecipes; track $index) {
+        <div class="col-md-4 px-4">
+            <img style="width: 100%;height: 300px;" [src]="item.image" alt="">
+            <h4 class="text-center mt-3">{{item.name}}</h4>
+        </div>
+        }
+        }@else{
+        <p>Loading...</p>
+        }
+    </div>
+    <!-- 50+ -->
+    <div class="row p-5 my-5"
+        style="background-image: url(https://static.vecteezy.com/system/resources/thumbnails/025/480/739/small_2x/vegetables-set-and-spices-for-cooking-on-dark-background-ai-generated-free-photo.jpg);background-repeat: no-repeat;">
+        <div class="col-md-6 bg-light p-5 rounded ">
+            <h1>50+ Recipes That Very Quick And Fast.</h1>
+            <p>Find the prefect food ideas to start your day with the quick and easiet way.</p>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+    <div class="row bg-success p-5 rounded my-5">
+        <div class="col-md-6">
+            <img class="w-100 rounded"
+                src="https://6amcity.brightspotcdn.com/dims4/default/61ea657/2147483647/strip/true/crop/1198x674+0+170/resize/1000x563!/quality/90/?url=https:%2F%2Fk1-prod-sixam-city.s3.amazonaws.com%2Fbrightspot%2F7f%2F28%2Fd0271a1b4075bd01935215f4f3d9%2Fimage2.jpg"
+                alt="">
+        </div>
+        <div class="col-md-6 text-light d-flex justify-content-center align-items-center flex-column">
+            <h1>Download App</h1>
+            <p class="mt-4">Download the app from App store or <br> Google play for better Experience. </p>
+
+            <div class="d-flex justify-content-center mt-4">
+                <img class="ms-5 w-75" height="100px" src="https://logodix.com/logo/710829.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- testimonial -->
+    <div class="row my-5">
+        <h1 class="text-center mt-5">Client Testimonial</h1>
+        <div class="row my-5 d-flex justify-content-center align-items-center">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <div class="border rounded shadow p-5">
+                    <h4 class="mb-4 text-primary">Name</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At saepe optio ipsa a vero assumenda
+                        inventore. Dignissimos nisi, iusto omnis deserunt dolor ali</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

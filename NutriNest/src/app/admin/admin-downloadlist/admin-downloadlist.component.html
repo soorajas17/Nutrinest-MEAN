@@ -1,0 +1,44 @@
+<app-admin-header></app-admin-header>
+
+<div class="container-fluid p-0" style="overflow-x:hidden;">
+    <div class="row">
+        <div class="col-md-2">
+            <app-admin-sidebar></app-admin-sidebar>
+        </div>
+        <div class="col-md-10 ps-0">
+            <div class="row bg-warning p-3">
+                <h3><i class="fa-solid fa-bars"></i>Download List</h3>
+            </div>
+            <div class="px-5 my-3 table-responsive">
+                <table class="table table-bordered shadow">
+                    <thead>
+                        <tr>
+                            <th class="bg-success text-light">SL:No</th>
+                            <th class="bg-success text-light">Recipe Id</th>
+                            <th class="bg-success text-light">Recipe Name</th>
+                            <th class="bg-success text-light">Recipe Cuisine</th>
+                            <th class="bg-success text-light">Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (allDownloads.length>0) {
+                        @for (item of allDownloads; track $index) {
+                        <tr>
+                            <td>{{$index+1}}</td>
+                            <td>{{item.recipeId}}</td>
+                            <td>{{item.recipeName}}</td>
+                            <td>{{item.cuisine}}</td>
+                            <td>{{item.count}}</td>
+                        </tr>
+                        }
+                        }@else {
+                        <h3 class="text-danger">No Downloads....</h3>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

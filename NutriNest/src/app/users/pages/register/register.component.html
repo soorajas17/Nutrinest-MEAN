@@ -1,0 +1,43 @@
+<div class="container" style="margin-top: 100px;margin-bottom: 70px;">
+    <div class="row">
+        <div class="col-md-5">
+            <form class="shadow p-5 mb-5" [formGroup]="registerForm" (ngSubmit)="register()">
+                <h1 class="mb-5 text-center"> <i class="fa-solid fa-kitchen-set"></i> Cookepedia</h1>
+                <div class="mb-3">
+                    <input type="text" name="username" formControlName="username" placeholder="username"
+                        class="form-control">
+                    @if(registerForm.get("username").errors && registerForm.get("username").touched) {<span
+                        class="text-danger" style="font: 12px;">*Invalid input</span>}
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="email" formControlName="email" placeholder="email" class="form-control">
+                    @if(registerForm.get("email").errors && registerForm.get("email").touched) {<span
+                        class="text-danger" style="font: 12px;">*Invalid input</span>}
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="password" formControlName="password" placeholder="password"
+                        class="form-control">
+                    @if(registerForm.get("password").errors && registerForm.get("password").touched) { <span
+                        class="text-danger" style="font: 12px;">*Invalid input</span>}
+                </div>
+                <div class="mb-5">
+                    <button type="submit" class="btn btn-success w-100">Register</button>
+                </div>
+                <span>Already User? <a class="text-success" routerLink="/login">Login</a> </span>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-5 d-flex justify-content-center align-items-center">
+            <div>
+                <h1>Create an account</h1>
+                <h4 class="my-5">What you will get?</h4>
+                <ul>
+                    <li>Different reccipe</li>
+                    <li>Easy way to cook</li>
+                    <li>Save your favourite recipe</li>
+                    <li>Download your recipe</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
