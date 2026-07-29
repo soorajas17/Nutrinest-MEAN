@@ -59,3 +59,20 @@ exports.deleteRecipeController = async (req, res) => {
     }
 
 }
+
+// update recipe
+exports.updateRecipeController = async (req, res) => {
+    const { id } = req.params
+    const { name, ingredients, instructions, prepTimeMinutes, cookTimeMinutes, servings, difficulty, cuisine, caloriesPerServing, mealType, image } = req.body
+
+    try {
+        const updateRecipe = await recipes.findByIdAndUpdate({ _id: id }, {
+            name, ingredients, instructions, prepTimeMinutes, cookTimeMinutes, servings, difficulty, cuisine, caloriesPerServing, mealType, image
+        },
+            { new: true }
+        )
+        res.status(200).json(updateRecipe)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}

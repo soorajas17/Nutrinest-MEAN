@@ -1,10 +1,10 @@
 const express = require('express')
 const { registerController, loginController, profileUpdateController, getAllUsersController, getAllDownloadController } = require('./controller/userController')
-const { getHomeRecipesController, getAllRecipesController, getARecipeController, addRecipeController, deleteRecipeController } = require('./controller/recipeController')
+const { getHomeRecipesController, getAllRecipesController, getARecipeController, addRecipeController, deleteRecipeController, updateRecipeController } = require('./controller/recipeController')
 const jwtMiddleware = require('./middlewares/jwtMiddleware')
 const { addSavedRecipeController, getAllSavedRecipeController, deleteASavedRecipeController } = require('./controller/savedRecipeController')
 const { addToDownloadRecipeController, getAllDownloadRecipeController } = require('./controller/downloadRecipeController')
-const { addTestimonialController, getAllTestimonialController, updateTestimonialsController } = require('./controller/testimonialController')
+const { addTestimonialController, getAllTestimonialController, updateTestimonialsController, getAdminTestimonialsController } = require('./controller/testimonialController')
 
 const route = new express.Router()
 
@@ -48,8 +48,10 @@ route.put('/update-testimonials', updateTestimonialsController)
 route.post('/add-recipe', addRecipeController)
 // path to delete a recipe
 route.delete('/delete-recipe/:id', deleteRecipeController)
-
-
+// update recipe
+route.put('/update-recipe/:id', updateRecipeController)
+// admin-alltestimonials
+route.get('/admin-alltestimonials', getAdminTestimonialsController)
 
 
 

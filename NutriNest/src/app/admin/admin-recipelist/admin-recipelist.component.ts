@@ -6,6 +6,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormBuilder, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-admin-recipelist',
   standalone: true,
@@ -21,7 +23,12 @@ export class AdminRecipelistComponent {
   dropdownList: any = []
   dropdownSettings: IDropdownSettings = {}
   recipeForm: any = []
-
+  updateId: any = ""
+  isEdit: boolean = false
+  // ingredients: any = []
+  // instructions: any = []
+  // mealTypeArray: any = []
+  selectedMealType: any = []
   constructor(private api: ApiService, private fb: FormBuilder) {
     this.recipeForm = fb.group({
       name: ["", [Validators.required, Validators.pattern('[a-zA-Z]*')]],
@@ -65,34 +72,42 @@ export class AdminRecipelistComponent {
   }
 
   onItemSelect(event: any) {
-    console.log(event);
+    // console.log(event);
     this.recipeForm.value.mealType.push(event.item_text)
+    // this.mealTypeArray.push(event.item_text)
   }
   onSelectAll(event: any) {
-    console.log(event);
+    // console.log(event);
     event.forEach((item: any) => {
+      // this.mealTypeArray.push(item.item_text)
       this.recipeForm.value.mealType.push(item.item_text)
     })
   }
 
   deleteItem(event: any) {
+    // this.mealTypeArray = this.mealTypeArray.filter((item: any) => item != event.item_text)
     this.recipeForm.value.mealType = this.recipeForm.value.mealType.filter((item: any) => item != event.item_text)
   }
 
   deleteAllItem() {
     this.recipeForm.value.mealType = []
+    // this.mealTypeArray = []
   }
 
   addIngredients(data: any) {
-    console.log(data.value);
-    this.recipeForm.value.ingredients.push(data.value)
-    data.value = ""
+    if (data.value.trim()) {
+      this.recipeForm.value.ingredients.push(data.value)
+      data.value = ""
+    }
+
   }
 
   addInstructions(data: any) {
-    console.log(data.value);
-    this.recipeForm.value.instructions.push(data.value)
-    data.value = ""
+    // console.log(data.value);
+    if (data.value.trim()) {
+      this.recipeForm.value.instructions.push(data.value)
+      data.value = ""
+    }
 
   }
 
@@ -140,13 +155,31 @@ export class AdminRecipelistComponent {
     if (this.recipeForm.value.invalid) {
       alert("fill the form completely..")
     } else {
-      this.api.addRecipeApi(this.recipeForm.value).subscribe({
+
+      const reqBody = {
+        ...this.recipeForm.value,
+
+        ingredients: this.recipeForm.value.ingredients
+          .split(",")
+          .map((item: any) => item.trim()),
+
+        instructions: this.recipeForm.value.instructions
+          .split(",")
+          .map((item: any) => item.trim()),
+
+        mealType: this.recipeForm.value.mealType
+          .split(",")
+          .map((item: any) => item.trim())
+
+      }
+
+      this.api.addRecipeApi(reqBody).subscribe({
         next: (res: any) => {
           console.log(res);
           this.getAllRecipes()
+          this.recipeForm.reset()
         }, error: (err: any) => {
           console.log(err);
-
         }
       })
     }
@@ -164,5 +197,84 @@ export class AdminRecipelistComponent {
       }
     })
   }
+
+  // editRecipe
+  editRecipe(recipe: any) {
+    this.isEdit = true
+    this.updateId = recipe._id
+    this.recipeForm.patchValue({
+      name: recipe.name,
+      prepTimeMinutes: recipe.prepTimeMinutes,
+      caloriesPerServing: recipe.caloriesPerServing,
+      servings: recipe.servings,
+      cookTimeMinutes: recipe.cookTimeMinutes,
+      difficulty: recipe.difficulty,
+      cuisine: recipe.cuisine,
+      ingredients: recipe.ingredients.join(", "),
+      instructions: recipe.instructions.join(", "),
+      mealType: recipe.mealType.join(", "),
+      image: recipe.image
+    })
+  }
+
+  // update recipe
+  updateRecipe() {
+
+    const reqBody = {
+
+      ...this.recipeForm.value,
+
+      ingredients: this.recipeForm.value.ingredients
+        .split(",")
+        .map((item: any) => item.trim()),
+
+      instructions: this.recipeForm.value.instructions
+        .split(",")
+        .map((item: any) => item.trim()),
+
+      mealType: this.recipeForm.value.mealType
+        .split(",")
+        .map((item: any) => item.trim())
+
+    }
+
+    this.api.updateRecipeApi(this.updateId, reqBody).subscribe({
+
+      next: (res: any) => {
+
+        console.log(res);
+
+        alert("Recipe Updated Successfully")
+
+        this.getAllRecipes()
+
+        // Close Modal
+        const modal = document.getElementById('exampleModal')
+        const modalInstance = bootstrap.Modal.getInstance(modal)
+        modalInstance.hide()
+
+        // Reset Form
+        this.recipeForm.reset()
+
+        this.recipeForm.patchValue({
+          ingredients: [],
+          instructions: [],
+          mealType: []
+        })
+
+        this.isEdit = false
+
+      },
+
+      error: (err: any) => {
+
+        console.log(err);
+
+      }
+
+    })
+
+  }
+
 
 }

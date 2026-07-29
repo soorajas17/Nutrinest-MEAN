@@ -62,7 +62,7 @@ export class AdminDashboardComponent {
     })
   }
   getAllTestimonials() {
-    this.api.getAllTestimonialApi().subscribe({
+    this.api.getAdminTestimonialsApi().subscribe({
       next: (res: any) => {
         console.log(res);
         this.allTestimonials = res.filter((item: any) => item.status == 'pending').length

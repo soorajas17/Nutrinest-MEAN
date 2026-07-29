@@ -99,5 +99,13 @@ export class ApiService {
   deleteRecipeApi(id: any) {
     return this.http.delete(`${this.serverURL}/delete-recipe/${id}`)
   }
+  // updateRecipe
+  updateRecipeApi(id: string, reqBody: any) {
+    return this.http.put(`${this.serverURL}/update-recipe/${id}`, reqBody)
+  }
+  // getAdminTestimonialsApi
+  getAdminTestimonialsApi(){
+     return this.http.get(`${this.serverURL}/admin-alltestimonials`)
+  }
 
 }

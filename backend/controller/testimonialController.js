@@ -18,7 +18,7 @@ exports.addTestimonialController = async (req, res) => {
 // getAll testimonials
 exports.getAllTestimonialController = async (req, res) => {
     try {
-        const allTestimonials = await testimonials.find()
+        const allTestimonials = await testimonials.find({status:"approved"})
         res.status(200).json(allTestimonials)
     } catch (error) {
         res.status(500).json(error)
@@ -39,5 +39,20 @@ exports.updateTestimonialsController = async (req, res) => {
         res.status(200).json(updatedTestimonial)
     } catch (error) {
         res.status(500).json(error)
+    }
+}
+
+// getAdminTestimonialsController 
+exports.getAdminTestimonialsController =async(req,res)=>{
+    try {
+
+        const allTestimonials = await testimonials.find()
+
+        res.status(200).json(allTestimonials)
+
+    } catch (error) {
+
+        res.status(500).json(error)
+
     }
 }

@@ -35,9 +35,10 @@
                             </td>
                             <td>{{item.cuisine}}</td>
                             <td class="text-center">
-                                <button class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
-                                <button type="button" (click)="deleteRecipe(item._id)" class="btn btn-outline-danger ms-3"><i
-                                        class="fa-solid fa-trash-can"></i></button>
+                                <button (click)="editRecipe(item)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
+                                <button type="button" (click)="deleteRecipe(item._id)"
+                                    class="btn btn-outline-danger ms-3"><i class="fa-solid fa-trash-can"></i></button>
                             </td>
                         </tr>
                         }
@@ -109,21 +110,34 @@
                             </div>
                             <div class="mb-3">
                                 <!-- drop-down -->
-                                <ng-multiselect-dropdown [placeholder]="'Choose Meal Type'"
-                                    [settings]="dropdownSettings" [data]="dropdownList"
+                                <!-- <ng-multiselect-dropdown [placeholder]="'Choose Meal Type'"
                                     (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
                                     (onDeSelect)="deleteItem($event)" (onDeSelectAll)="deleteAllItem()">
-                                </ng-multiselect-dropdown>
+                                </ng-multiselect-dropdown> -->
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Meal Type (Dinner,Lunch,Snack)"
+                                        formControlName="mealType">
+                                </div>
                             </div>
-                            <div class="mb-3 d-flex">
+                            <!-- <div class="mb-3 d-flex">
                                 <input #ingre type="text" placeholder="Ingredients" class="form-control rounded-0">
                                 <button (click)="addIngredients(ingre)" type="button"
                                     class="btn btn-success rounded-0">Add</button>
+                            </div> -->
+                            <div class="mb-3">
+                                <textarea rows="3" class="form-control" placeholder="Ingredients (comma separated)"
+                                    formControlName="ingredients">
+                                </textarea>
                             </div>
-                            <div class="mb-3 d-flex">
+                            <!-- <div class="mb-3 d-flex">
                                 <input #instr type="text" placeholder="Instructions" class="form-control rounded-0">
                                 <button (click)="addInstructions(instr)" type="button"
                                     class="btn btn-success rounded-0">Add</button>
+                            </div> -->
+                            <div class="mb-3">
+                                <textarea rows="3" class="form-control" placeholder="Instructions (comma separated)"
+                                    formControlName="instructions">
+                                </textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="" style="color:red">Upload Image</label>
@@ -135,7 +149,12 @@
             </div>
             <div class="modal-footer" style="background-color: rgb(189, 242, 224);">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+                @if (!isEdit) {
                 <button (click)="saveRecipe()" type="button" class="btn btn-success">Save</button>
+                }@else {
+                <button (click)="updateRecipe()" type="button" class="btn btn-primary"
+                    data-bs-dismiss="modal">Update</button>
+                }
             </div>
         </div>
     </div>

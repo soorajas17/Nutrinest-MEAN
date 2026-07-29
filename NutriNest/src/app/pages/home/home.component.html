@@ -71,11 +71,12 @@
         <h1 class="text-center mt-5">Client Testimonial</h1>
         <div class="row my-5 d-flex justify-content-center align-items-center">
             <div class="col-md-4 d-flex justify-content-center align-items-center">
-                <div class="border rounded shadow p-5">
-                    <h4 class="mb-4 text-primary">Name</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At saepe optio ipsa a vero assumenda
-                        inventore. Dignissimos nisi, iusto omnis deserunt dolor ali</p>
+                @for (item of allTestimonials; track $index) {
+                    <div class="border rounded shadow p-5">
+                    <h4 class="mb-4 text-primary">{{item.name}}</h4>
+                    <p>{{item.message}}</p>
                 </div>
+                }
             </div>
         </div>
     </div>

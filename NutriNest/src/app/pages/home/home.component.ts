@@ -13,7 +13,14 @@ import { ApiService } from '../../services/api.service';
 export class HomeComponent {
 
   homeRecipes: any = []
+  allTestimonials:any=[]
+
   constructor(private api: ApiService) { }
+
+  ngOnInit() {
+    this.getHomeRecipes()
+     this.getTestimonials()
+  }
 
   getHomeRecipes() {
     this.api.homeRecipesApi().subscribe({
@@ -28,7 +35,18 @@ export class HomeComponent {
       }
     })
   }
-  ngOnInit() {
-    this.getHomeRecipes()
+
+  // getTestimonials
+  getTestimonials(){
+    this.api.getAllTestimonialApi().subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.allTestimonials=res
+      }, error: (err: any) => {
+        console.log(err);
+
+      }
+    })
   }
+  
 }
