@@ -1,47 +1,194 @@
-<div class="container mt-5 bg-success">
-    <nav class="navbar navbar-expand-lg  ">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="fa-solid fa-utensils fs-2"></i>NUTRINEST</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a routerLink="/" class="nav-link active text-light" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/about" class="nav-link active text-light" aria-current="page" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/all-recipes" class="nav-link active text-light" aria-current="page"
-                            href="#">Recipe</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/contact" class="nav-link active text-light" aria-current="page"
-                            href="#">Contact</a>
-                    </li>
-                </ul>
-                <div class="dropdown ms-auto">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>
-                        <!-- <span>Hi user</span> -->
-                    </button>
-                    <ul class="dropdown-menu">
-                        @if (isLogin) {
-                        <li><a routerLink="/profile" class="dropdown-item">Profile</a></li>
-                        <li><a routerLink="/saved-recipe" class="dropdown-item">Saved Recipes</a></li>
-                        <li><a (click)="Logout()"class="dropdown-item">Logout</a></li>
-                        }@else{
-                        <li><a routerLink="/login" class="dropdown-item">Login</a></li>
-                        <li><a routerLink="/register" class="dropdown-item">Register</a></li>
-                        }
+<style>
+  .header-wrapper {
+    background: linear-gradient(135deg, #198754, #14532d);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
 
-                    </ul>
-                </div>
+  .header-wrapper .navbar {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0.7rem 2rem;
+  }
+
+  .header-wrapper .navbar-brand {
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .header-wrapper .navbar-brand i {
+    font-size: 1.7rem;
+    color: #ffe08a;
+  }
+
+  .header-wrapper .navbar-brand:hover {
+    transform: scale(1.05);
+  }
+
+  .header-wrapper .navbar-nav {
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .header-wrapper .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .header-wrapper .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.25rem;
+    height: 2px;
+    background: #ffe08a;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .header-wrapper .nav-link:hover,
+  .header-wrapper .nav-link.active {
+    color: #fff !important;
+  }
+
+  .header-wrapper .nav-link:hover::after,
+  .header-wrapper .nav-link.active::after {
+    transform: scaleX(1);
+  }
+
+  .header-wrapper .btn-user {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+    border-radius: 50px;
+    padding: 0.45rem 1rem;
+    margin-left: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .header-wrapper .btn-user:hover {
+    background: #fff;
+    color: #198754;
+    transform: translateY(-2px);
+  }
+
+  .header-wrapper .dropdown-menu {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    margin-top: 0.5rem;
+    min-width: 180px;
+    animation: fadeSlide 0.25s ease;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .header-wrapper .dropdown-item {
+    padding: 0.6rem 1.2rem;
+    transition: background 0.2s ease, padding-left 0.2s ease;
+  }
+
+  .header-wrapper .dropdown-item:hover {
+    background: #e9f7ef;
+    padding-left: 1.5rem;
+    color: #198754;
+  }
+
+  .header-wrapper .navbar-toggler {
+    border: none;
+    box-shadow: none !important;
+    padding: 0.25rem 0.5rem;
+  }
+
+  @media (max-width: 991px) {
+    .header-wrapper .navbar {
+      padding: 0.7rem 1.2rem;
+    }
+
+    .header-wrapper .navbar-collapse {
+      background: #146c43;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-top: 0.8rem;
+      animation: fadeSlide 0.3s ease;
+    }
+
+    .header-wrapper .navbar-nav {
+      gap: 0.2rem;
+    }
+
+    .header-wrapper .nav-item {
+      text-align: center;
+    }
+
+    .header-wrapper .nav-link::after {
+      display: none;
+    }
+
+    .header-wrapper .dropdown {
+      text-align: center;
+      margin-top: 0.8rem;
+    }
+
+    .header-wrapper .btn-user {
+      margin-left: 0;
+    }
+  }
+</style>
+
+<div class="header-wrapper">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" routerLink="/"><i class="fa-solid fa-utensils"></i>NUTRINEST</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a routerLink="/" routerLinkActive="active" class="nav-link" aria-current="page">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/about" routerLinkActive="active" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/all-recipes" routerLinkActive="active" class="nav-link">Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/contact" routerLinkActive="active" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="dropdown">
+                <button class="btn btn-user dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    @if (isLogin) {
+                    <li><a routerLink="/profile" class="dropdown-item">Profile</a></li>
+                    <li><a routerLink="/saved-recipe" class="dropdown-item">Saved Recipes</a></li>
+                    <li><a (click)="Logout()" class="dropdown-item">Logout</a></li>
+                    }@else{
+                    <li><a routerLink="/login" class="dropdown-item">Login</a></li>
+                    <li><a routerLink="/register" class="dropdown-item">Register</a></li>
+                    }
+                </ul>
             </div>
         </div>
     </nav>

@@ -1,73 +1,286 @@
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #198754 !important;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+  }
+
+  .back-link:hover {
+    transform: translateX(-4px);
+    color: #14532d !important;
+  }
+
+  .recipe-hero-img {
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    height: 500px;
+  }
+
+  .action-btns .btn {
+    border-radius: 50px;
+    padding: 0.6rem 1.6rem;
+    font-weight: 600;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .action-btns .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  }
+
+  .recipe-title {
+    font-weight: 700;
+  }
+
+  .recipe-meta {
+    background: #f4f9f6;
+    border-radius: 14px;
+    padding: 1rem 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .recipe-meta p {
+    margin: 0;
+    color: #198754;
+    font-size: 0.9rem;
+  }
+
+  .stat-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    padding: 1.2rem 0.8rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+    flex: 1;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .stat-card img {
+    width: 55px;
+    margin-bottom: 0.6rem;
+  }
+
+  .stat-card p {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-card h5 {
+    font-weight: 700;
+  }
+
+  .stat-card .text-danger {
+    font-size: 1.3rem;
+  }
+
+  .section-title {
+    font-weight: 700;
+    position: relative;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #198754;
+    border-radius: 2px;
+    margin-top: 8px;
+  }
+
+  .ingredients-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .ingredients-list li {
+    padding: 0.5rem 0 0.5rem 2rem;
+    position: relative;
+    color: #444;
+  }
+
+  .ingredients-list li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #198754;
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .instructions-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: step;
+  }
+
+  .instructions-list li {
+    counter-increment: step;
+    position: relative;
+    padding: 0.6rem 0 0.6rem 3rem;
+    margin-bottom: 0.5rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .instructions-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+    width: 28px;
+    height: 28px;
+    background: #198754;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .related-section {
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+  }
+
+  .related-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+  }
+
+  .related-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.14);
+  }
+
+  .related-card img {
+    border-radius: 14px 14px 0 0;
+    transition: transform 0.4s ease;
+  }
+
+  .related-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .related-card .card-body {
+    padding: 1rem;
+  }
+
+  .related-card .card-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .recipe-hero-img {
+      height: 260px;
+    }
+
+    .recipe-meta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .action-btns {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .action-btns .btn {
+      width: 100%;
+    }
+  }
+</style>
+
 <app-header></app-header>
 
 <div class="container my-5">
-    <div class="row mb-6">
+    <div class="row mb-4">
         <div class="col-md-6">
-            <a routerLink="/all-recipes" class="text-info" style="cursor: pointer;">Back to all Recipes</a>
-            <img class="img-fluid my-5 w-100" [src]="recipeDetailes.image" alt="">
-            <div class="d-flex justify-content-between">
-                <button (click)="downloadRecipe()" type="button" class="btn btn-success">Download Recipes</button>
-                <button (click)="savedRecipes()" type="button" class="btn btn-primary">Save Recipes</button>
+            <a routerLink="/all-recipes" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to all Recipes</a>
+            <img class="recipe-hero-img my-4 w-100" [src]="recipeDetailes.image" alt="">
+            <div class="d-flex justify-content-between action-btns">
+                <button (click)="downloadRecipe()" type="button" class="btn btn-success"><i class="fa-solid fa-download me-2"></i>Download Recipe</button>
+                <button (click)="savedRecipes()" type="button" class="btn btn-primary"><i class="fa-solid fa-bookmark me-2"></i>Save Recipe</button>
             </div>
         </div>
         <div class="col-md-6 px-4">
-            <h1 class="mt-5 mt-md-0 text-center">{{recipeDetailes.name}}</h1>
-            <div class="d-flex justify-content-between my-5">
-                <p class="fw-bolder">Cuisine: {{recipeDetailes.cuisine}}</p>
-                <p class="fw-bolder">Serving: {{recipeDetailes.servings}}</p>
-                <p class="fw-bolder">Mode of cooking: {{recipeDetailes.difficulty}}</p>
+            <h1 class="mt-5 mt-md-0 text-center recipe-title">{{recipeDetailes.name}}</h1>
+            <div class="d-flex justify-content-between my-4 recipe-meta">
+                <p><i class="fa-solid fa-earth-asia me-1"></i>Cuisine: {{recipeDetailes.cuisine}}</p>
+                <p><i class="fa-solid fa-users me-1"></i>Serving: {{recipeDetailes.servings}}</p>
+                <p><i class="fa-solid fa-gauge me-1"></i>Difficulty: {{recipeDetailes.difficulty}}</p>
             </div>
-            <div class="d-flex justify-content-evenly my-5 ">
-                <div class="d-flex flex-column align-items-center ">
-                    <img width="70px"
+            <div class="d-flex justify-content-evenly gap-2 my-4">
+                <div class="stat-card">
+                    <img
                         src="https://tse1.mm.bing.net/th/id/OIP.1IX-le24JV285m1NVuaR0gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
                         alt="">
-                    <p class="fw-bolder mt-2">Preparation Time:</p>
-                    <h5><span class="text-danger">{{recipeDetailes.prepTimeMinutes}}</span>minutes</h5>
+                    <p>Preparation Time</p>
+                    <h5><span class="text-danger">{{recipeDetailes.prepTimeMinutes}}</span> min</h5>
                 </div>
-                <div class="d-flex flex-column align-items-center">
-                    <img width="70px"
+                <div class="stat-card">
+                    <img
                         src="https://tse2.mm.bing.net/th/id/OIP.e6xjUidDsJNXlhsE-1k93gHaHL?rs=1&pid=ImgDetMain&o=7&rm=3"
                         alt="">
-                    <p class="fw-bolder mt-2">Cooking Time:</p>
-                    <h5><span class="text-danger">{{recipeDetailes.cookTimeMinutes}}</span>minutes</h5>
+                    <p>Cooking Time</p>
+                    <h5><span class="text-danger">{{recipeDetailes.cookTimeMinutes}}</span> min</h5>
                 </div>
-                <div class="d-flex flex-column align-items-center">
-                    <img width="70px"
+                <div class="stat-card">
+                    <img
                         src="https://tse2.mm.bing.net/th/id/OIP.dW9hhuMjrndgfwQ5todfGAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
                         alt="">
-                    <p class="fw-bolder mt-2">Calories per Serving:</p>
-                    <h5><span class="text-danger">{{recipeDetailes.caloriesPerServing}}</span>calories</h5>
+                    <p>Calories / Serving</p>
+                    <h5><span class="text-danger">{{recipeDetailes.caloriesPerServing}}</span> cal</h5>
                 </div>
             </div>
-            <div class="my-3">
-                <h3>Ingredients Needed</h3>
-                <ol>
+            <div class="my-4">
+                <h3 class="section-title">Ingredients Needed</h3>
+                <ul class="ingredients-list">
                     @for (item of recipeDetailes.ingredients; track $index) {
                     <li>{{item}}</li>
                     }
-                </ol>
+                </ul>
             </div>
-            <div class="my-3">
-                <h3>Cooking Instructions</h3>
-                <ol>
+            <div class="my-4">
+                <h3 class="section-title">Cooking Instructions</h3>
+                <ol class="instructions-list">
                     @for (item of recipeDetailes.instructions; track $index) {
                     <li>{{item}}</li>
                     }
                 </ol>
             </div>
-
         </div>
     </div>
 
-    <div class="row my-5">
-        <h1>Related Recipes</h1>
+    <div class="row my-5 related-section">
+        <h1 class="section-title">Related Recipes</h1>
         @if (relatedRecipes.length>0) {
         @for (item of relatedRecipes; track $index) {
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="p-3">
-                <img class="w-100" style="height: 300px;" [src]="item.image" alt="">
-                <div class="card-body mt-2">
+            <div class="related-card">
+                <img class="w-100" style="height: 220px; object-fit: cover;" [src]="item.image" alt="">
+                <div class="card-body">
                     <h5 class="card-title">{{item.name}}</h5>
                 </div>
             </div>
@@ -75,9 +288,8 @@
         }
         }@else {
         <div class="col-12 text-center">
-            <h4 class="text-primary ms -3 mt-5">No related recipes...</h4>
+            <h4 class="text-primary mt-5">No related recipes...</h4>
         </div>
         }
     </div>
-
 </div>

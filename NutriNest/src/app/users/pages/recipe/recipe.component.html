@@ -1,58 +1,243 @@
+<style>
+  .filter-sidebar {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    padding: 1.8rem;
+  }
+
+  .filter-sidebar h2 {
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .filter-all-btn {
+    border-radius: 50px;
+    background: #198754;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.5rem 1.4rem;
+    border: none;
+    transition: transform 0.25s ease;
+  }
+
+  .filter-all-btn:hover {
+    transform: translateY(-2px);
+    color: #fff;
+  }
+
+  .filter-group {
+    margin-top: 1.5rem;
+    border-top: 1px solid #eee;
+    padding-top: 1.2rem;
+  }
+
+  .filter-toggle {
+    width: 100%;
+    text-align: left;
+    background: #f4f9f6;
+    border: none;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    font-weight: 600;
+    color: #198754;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .filter-toggle::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+
+  .filter-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+  }
+
+  .filter-options-wrap {
+    padding-top: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .filter-options-wrap .btn {
+    border-radius: 50px;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.9rem;
+    transition: all 0.25s ease;
+  }
+
+  .filter-options-wrap .btn:hover {
+    background: #198754;
+    color: #fff;
+    border-color: #198754;
+    transform: translateY(-1px);
+  }
+
+  .recipes-header h1 {
+    font-weight: 700;
+  }
+
+  .date-badge {
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  .search-input {
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .search-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+    outline: none;
+  }
+
+  .recipe-card {
+    cursor: pointer;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .recipe-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  .recipe-card img {
+    border-radius: 14px 14px 0 0;
+    transition: transform 0.4s ease;
+  }
+
+  .recipe-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .recipe-card-body {
+    padding: 1rem 0.3rem;
+  }
+
+  .recipe-card-body h4 {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .recipe-card-body p {
+    color: #777;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  ::ng-deep .ngx-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0;
+  }
+
+  ::ng-deep .ngx-pagination li {
+    border-radius: 8px !important;
+    overflow: hidden;
+  }
+
+  ::ng-deep .ngx-pagination .current {
+    background: #198754 !important;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .filter-sidebar {
+      margin-bottom: 2rem;
+    }
+
+    .recipes-header {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 1rem;
+    }
+
+    .search-input {
+      width: 100% !important;
+    }
+  }
+</style>
+
 <app-header></app-header>
 
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4 mt-3">
-            <h2>Filter</h2>
-            <button class="btn">All</button>
-            <div class="dropdown mt-4">
-                <button class="btn dropdown-toggle" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                    aria-expanded="false" aria-controls="collapseExample">
-                    Cuisine Type
-                </button>
-                <div class="collapse" id="collapseExample">
-                    @for (item of allCuisines; track $index) {
-                    <button (click)="filterCuisineType(item)" class="btn btn-outline-dark m-1">{{item}}</button>
-                    }
+            <div class="filter-sidebar">
+                <h2>Filter</h2>
+                <button (click)="showAllRecipes()" class="filter-all-btn">All</button>
 
+                <div class="filter-group">
+                    <button class="filter-toggle" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Cuisine Type
+                    </button>
+                    <div class="collapse" id="collapseExample">
+                        <div class="filter-options-wrap">
+                            @for (item of allCuisines; track $index) {
+                            <button (click)="filterCuisineType(item)" class="btn btn-outline-success m-1">{{item}}</button>
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="dropdown mt-3">
-                <button class="btn dropdown-toggle" data-bs-toggle="collapse" href="#collapseExample2" role="button"
-                    aria-expanded="false" aria-controls="collapseExample2">
-                    Meal Type
-                </button>
-                <div class="collapse" id="collapseExample2">
-                    @for (item of mealType; track $index) {
-                    <button (click)="filterMealType(item)" class="btn btn-outline-dark m-1">{{item}}</button>
-                    }
+                <div class="filter-group">
+                    <button class="filter-toggle" data-bs-toggle="collapse" href="#collapseExample2" role="button"
+                        aria-expanded="false" aria-controls="collapseExample2">
+                        Meal Type
+                    </button>
+                    <div class="collapse" id="collapseExample2">
+                        <div class="filter-options-wrap">
+                            @for (item of mealType; track $index) {
+                            <button (click)="filterMealType(item)" class="btn btn-outline-success m-1">{{item}}</button>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-8">
             <div class="d-flex justify-content-end">
-                <h5>{{time | date:"fullDate"}}</h5>
+                <h5 class="date-badge">{{time | date:"fullDate"}}</h5>
             </div>
-            <div class="d-flex justify-content-between mb-5 ">
+            <div class="d-flex justify-content-between align-items-center mb-5 recipes-header">
                 <h1>All Recipes</h1>
                 <input [(ngModel)]="searchKey" type="text" placeholder="Search recipes here..."
-                    class="form-control w-50">
+                    class="form-control search-input w-50">
             </div>
-            <div class="row ">
+            <div class="row">
                 @if(allRecipes.length>0){
                 @for (item of allRecipes|search:searchKey | paginate: { itemsPerPage: 6, currentPage: p, }; track
                 $index) {
-                <div class="col-md-4 px-4" (click)="viewRecipe(item._id)">
-                    <img style="width: 100%;height: 250px;" [src]="item.image" alt="">
-                    <h4 class=" mt-3">{{item.name}}</h4>
-                    <p>Cuisine : {{item.cuisine}}</p>
+                <div class="col-md-4 px-3">
+                    <div class="recipe-card shadow-sm" (click)="viewRecipe(item._id)">
+                        <img style="width: 100%;height: 220px;object-fit: cover;" [src]="item.image" alt="">
+                        <div class="recipe-card-body">
+                            <h4>{{item.name}}</h4>
+                            <p>Cuisine : {{item.cuisine}}</p>
+                        </div>
+                    </div>
                 </div>
                 }
                 }@else {
                 <p>Loading...</p>
                 }
-                <div class="text-center mt-5">
+                <div class="text-center mt-4">
                     <pagination-controls (pageChange)="p=$event"></pagination-controls>
                 </div>
             </div>

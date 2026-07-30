@@ -1,29 +1,125 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h1 class="text-center my-5">Login</h1>
-            <p class="text-center">More than 100+ recipes around the world.</p>
-            <form class="shadow p-5 mb-5" [formGroup]="loginForm" (ngSubmit)="login()">
-                <h1 class="mb-5 text-center"> <i class="fa-solid fa-kitchen-set"></i> Cookepedia</h1>
-                <div class="mb-3">
-                    <input type="text" name="email" formControlName="email" placeholder="email" class="form-control">
-                    @if (loginForm.get("email").errors && loginForm.get("email").touched) {
-                    <span class="text-danger" style="font: 12px;">*Invalid input</span>
-                    }
-                </div>
-                <div class="mb-3">
-                    <input type="text" name="password" formControlName="password" placeholder="password"
-                        class="form-control">
-                    @if ((loginForm.get("password").errors && loginForm.get("password").touched) ) {
-                    <span class="text-danger" style="font: 12px;">*Invalid input</span>
-                    }
-                </div>
-                <div class="mb-5">
-                    <button type="submit" class="btn btn-success w-100">Login</button>
-                </div>
-            </form>
+<style>
+  .login-wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2.5rem;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .login-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #198754;
+  }
+
+  .login-brand i {
+    color: #ffc107;
+    margin-right: 8px;
+  }
+
+  .login-subtitle {
+    color: #6c757d;
+    font-size: 0.95rem;
+  }
+
+  .input-group-custom {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-group-custom i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #198754;
+    opacity: 0.7;
+  }
+
+  .input-group-custom input {
+    padding-left: 42px;
+    border-radius: 10px;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    border: 1px solid #dee2e6;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .input-group-custom input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+  }
+
+  .error-text {
+    font-size: 12px;
+    display: block;
+    margin-top: 4px;
+    animation: fadeInUp 0.25s ease;
+  }
+
+  .btn-login {
+    border-radius: 10px;
+    padding: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(25, 135, 84, 0.3);
+  }
+
+  @media (max-width: 576px) {
+    .login-card {
+      padding: 2.2rem 1.5rem;
+      border-radius: 14px;
+    }
+  }
+</style>
+
+<div class="login-wrapper">
+  <div class="login-card">
+    <h1 class="login-brand text-center mb-2"><i class="fa-solid fa-utensils"></i>NUTRINEST</h1>
+    <p class="login-subtitle text-center mb-4">More than 100+ recipes around the world.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <h4 class="mb-4 text-center fw-semibold">Login to your account</h4>
+
+        <div class="input-group-custom">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="text" name="email" formControlName="email" placeholder="Email" class="form-control">
+            @if (loginForm.get("email").errors && loginForm.get("email").touched) {
+            <span class="text-danger error-text">*Invalid input</span>
+            }
         </div>
-        <div class="col-md-3"></div>
-    </div>
+
+        <div class="input-group-custom">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" name="password" formControlName="password" placeholder="Password"
+                class="form-control">
+            @if ((loginForm.get("password").errors && loginForm.get("password").touched)) {
+            <span class="text-danger error-text">*Invalid input</span>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-success btn-login w-100 mt-2">Login</button>
+    </form>
+  </div>
 </div>

@@ -64,6 +64,10 @@ export class RecipeComponent {
     this.allRecipes = this.dummyRecipes.filter((item: any) => item.mealType.includes(data))
   }
 
+  showAllRecipes() {
+    this.allRecipes = [...this.dummyRecipes]
+  }
+
   ngOnInit() {
     this.getAllRecipes()
   }

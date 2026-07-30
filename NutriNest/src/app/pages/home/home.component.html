@@ -1,83 +1,293 @@
-<app-header></app-header>
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #198754, #14532d);
+        border-radius: 16px;
+        padding: 3rem 1.5rem;
+        overflow: hidden;
+    }
 
+    .hero-section h1 {
+        font-weight: 700;
+        line-height: 1.3;
+        animation: fadeInUp 0.8s ease;
+    }
+
+    .hero-section p {
+        animation: fadeInUp 0.8s ease 0.15s backwards;
+    }
+
+    .hero-section .btn-warning {
+        animation: fadeInUp 0.8s ease 0.3s backwards;
+        border-radius: 50px;
+        padding: 0.6rem 1.6rem;
+        font-weight: 600;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .hero-section .btn-warning:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-section img {
+        animation: floatImg 4s ease-in-out infinite;
+    }
+
+    @keyframes floatImg {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .section-heading {
+        font-weight: 700;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-heading::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60px;
+        height: 4px;
+        background: #198754;
+        border-radius: 2px;
+    }
+
+    .recipe-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .recipe-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .recipe-card img {
+        border-radius: 12px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .recipe-card:hover img {
+        transform: scale(1.05);
+    }
+
+    .quick-recipes-banner {
+        background-size: cover;
+        background-position: center;
+        border-radius: 16px;
+    }
+
+    .quick-recipes-banner .info-box {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .download-app-section {
+        background: linear-gradient(135deg, #198754, #14532d);
+        border-radius: 16px;
+    }
+
+    .download-app-section img.store-badge {
+        transition: transform 0.3s ease;
+    }
+
+    .download-app-section img.store-badge:hover {
+        transform: scale(1.08);
+    }
+
+    .testimonial-heading {
+        font-weight: 700;
+        position: relative;
+    }
+
+    .testimonial-heading::after {
+        content: '';
+        display: block;
+        width: 70px;
+        height: 4px;
+        background: #198754;
+        border-radius: 2px;
+        margin: 12px auto 0;
+    }
+
+    .testimonial-card {
+        border: none !important;
+        border-radius: 16px;
+        background: #fff;
+        position: relative;
+        width: 100%;
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+        overflow: hidden;
+    }
+
+    .testimonial-card::before {
+        content: '\201C';
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        font-size: 6rem;
+        font-family: Georgia, serif;
+        color: #19875422;
+        line-height: 1;
+        pointer-events: none;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 18px 32px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .testimonial-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #198754, #14532d);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .testimonial-name {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .testimonial-message {
+        color: #555;
+        line-height: 1.7;
+        font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+
+        .hero-section img {
+            margin: 2rem 0 0 0 !important;
+            width: 70% !important;
+        }
+
+        .quick-recipes-banner .info-box {
+            margin: 0 !important;
+        }
+    }
+</style>
+
+<app-header></app-header>
 
 <div class="container">
     <!-- landing section -->
-    <div class="row bg-success py-5">
-        <div class="col-md-2"></div>
-        <div class="col-md-4 px-5 mt-5">
+    <div class="row hero-section my-4 align-items-center">
+        <div class="col-lg-6 px-4">
             <h1 class="text-light">The Easiest Way <br>
                 To Make Your <br>
                 Favourite Meal</h1>
-            <p class="text-light mt-5">Discover 100+ recipes in your hand with the best recipe.Help you find the easiest
+            <p class="text-light mt-4">Discover 100+ recipes in your hand with the best recipe. Help you find the
+                easiest
                 way to cook.</p>
             <button routerLink="/all-recipes" class="btn btn-warning mt-2">Explore Our Recipes</button>
         </div>
-        <div class="col-md-6">
-            <img class="w-75 ms-5" id="Landing"
+        <div class="col-lg-6 text-center">
+            <img class="w-75"
                 src="https://th.bing.com/th/id/R.a9caf544e96691b39893bb48c08c65bb?rik=auKFdVTUmlL0cA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fpng-plate-of-food--600.png&ehk=tmQ5jwDlt1f5vC78EN4ZPrzdKs0Cnr7kO0dDVXnwsr0%3d&risl=&pid=ImgRaw&r=0"
                 alt="">
         </div>
     </div>
+
     <!-- popular -->
     <div class="row mt-5">
-        <h1>Popular Recipe Of The Week.</h1>
-        <div class="d-flex justify-content-between my-5">
-            <p>Our most recipes of the week</p>
-            <a routerLink="all-recipes">View All</a>
+        <h1 class="section-heading">Popular Recipe Of The Week</h1>
+        <div class="d-flex justify-content-between align-items-center my-5">
+            <p class="mb-0">Our most recipes of the week</p>
+            <a routerLink="all-recipes" class="text-success fw-semibold text-decoration-none">View All &rarr;</a>
         </div>
     </div>
-    <div class="row ">
-
+    <div class="row">
         @if(homeRecipes.length>0){
         @for (item of homeRecipes; track $index) {
-        <div class="col-md-4 px-4">
-            <img style="width: 100%;height: 300px;" [src]="item.image" alt="">
-            <h4 class="text-center mt-3">{{item.name}}</h4>
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img style="width: 100%; height: 300px;" [src]="item.image" alt="">
+                <h4 class="text-center mt-3">{{item.name}}</h4>
+            </div>
         </div>
         }
         }@else{
         <p>Loading...</p>
         }
     </div>
+
     <!-- 50+ -->
-    <div class="row p-5 my-5"
-        style="background-image: url(https://static.vecteezy.com/system/resources/thumbnails/025/480/739/small_2x/vegetables-set-and-spices-for-cooking-on-dark-background-ai-generated-free-photo.jpg);background-repeat: no-repeat;">
-        <div class="col-md-6 bg-light p-5 rounded ">
-            <h1>50+ Recipes That Very Quick And Fast.</h1>
-            <p>Find the prefect food ideas to start your day with the quick and easiet way.</p>
+    <div class="row quick-recipes-banner p-3 p-md-5 my-5"
+        style="background-image: url(https://static.vecteezy.com/system/resources/thumbnails/025/480/739/small_2x/vegetables-set-and-spices-for-cooking-on-dark-background-ai-generated-free-photo.jpg); background-repeat: no-repeat;">
+        <div class="col-md-6 info-box bg-light p-4 p-md-5 rounded">
+            <h1>50+ Recipes That Are Very Quick And Fast</h1>
+            <p>Find the perfect food ideas to start your day the quick and easiest way.</p>
         </div>
         <div class="col-md-6"></div>
     </div>
 
-    <div class="row bg-success p-5 rounded my-5">
+    <div class="row download-app-section p-3 p-md-5 my-5">
         <div class="col-md-6">
             <img class="w-100 rounded"
-                src="https://6amcity.brightspotcdn.com/dims4/default/61ea657/2147483647/strip/true/crop/1198x674+0+170/resize/1000x563!/quality/90/?url=https:%2F%2Fk1-prod-sixam-city.s3.amazonaws.com%2Fbrightspot%2F7f%2F28%2Fd0271a1b4075bd01935215f4f3d9%2Fimage2.jpg"
+                src="https://img.freepik.com/premium-photo/balanced-diet-food-dark-background-healthy-diet-concept_661495-3961.jpg"
                 alt="">
         </div>
-        <div class="col-md-6 text-light d-flex justify-content-center align-items-center flex-column">
+        <div
+            class="col-md-6 text-light d-flex justify-content-center align-items-center flex-column text-center py-4 py-md-0">
             <h1>Download App</h1>
-            <p class="mt-4">Download the app from App store or <br> Google play for better Experience. </p>
-
+            <p class="mt-4">Download the app from App store or <br> Google play for better experience.</p>
             <div class="d-flex justify-content-center mt-4">
-                <img class="ms-5 w-75" height="100px" src="https://logodix.com/logo/710829.png" alt="">
+                <img class="store-badge w-75" height="100px" src="https://logodix.com/logo/710829.png" alt="">
             </div>
         </div>
     </div>
 
     <!-- testimonial -->
     <div class="row my-5">
-        <h1 class="text-center mt-5">Client Testimonial</h1>
-        <div class="row my-5 d-flex justify-content-center align-items-center">
-            <div class="col-md-4 d-flex justify-content-center align-items-center">
-                @for (item of allTestimonials; track $index) {
-                    <div class="border rounded shadow p-5">
-                    <h4 class="mb-4 text-primary">{{item.name}}</h4>
-                    <p>{{item.message}}</p>
+        <h1 class="text-center testimonial-heading mt-5">Client Testimonial</h1>
+        <div class="row my-5 g-4">
+            @for (item of allTestimonials; track $index) {
+            <div class="col-md-4 d-flex">
+                <div class="testimonial-card shadow-sm p-4 p-lg-5">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="testimonial-avatar">{{item.name.charAt(0)}}</div>
+                        <h4 class="testimonial-name text-success mb-0">{{item.name}}</h4>
+                    </div>
+                    <p class="testimonial-message mb-0">{{item.message}}</p>
                 </div>
-                }
             </div>
+            }
         </div>
     </div>
 

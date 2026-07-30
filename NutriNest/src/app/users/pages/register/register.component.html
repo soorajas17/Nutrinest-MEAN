@@ -1,41 +1,204 @@
-<div class="container" style="margin-top: 100px;margin-bottom: 70px;">
-    <div class="row">
-        <div class="col-md-5">
-            <form class="shadow p-5 mb-5" [formGroup]="registerForm" (ngSubmit)="register()">
-                <h1 class="mb-5 text-center"> <i class="fa-solid fa-kitchen-set"></i> Cookepedia</h1>
-                <div class="mb-3">
-                    <input type="text" name="username" formControlName="username" placeholder="username"
-                        class="form-control">
-                    @if(registerForm.get("username").errors && registerForm.get("username").touched) {<span
-                        class="text-danger" style="font: 12px;">*Invalid input</span>}
-                </div>
-                <div class="mb-3">
-                    <input type="text" name="email" formControlName="email" placeholder="email" class="form-control">
-                    @if(registerForm.get("email").errors && registerForm.get("email").touched) {<span
-                        class="text-danger" style="font: 12px;">*Invalid input</span>}
-                </div>
-                <div class="mb-3">
-                    <input type="text" name="password" formControlName="password" placeholder="password"
-                        class="form-control">
-                    @if(registerForm.get("password").errors && registerForm.get("password").touched) { <span
-                        class="text-danger" style="font: 12px;">*Invalid input</span>}
-                </div>
-                <div class="mb-5">
-                    <button type="submit" class="btn btn-success w-100">Register</button>
-                </div>
-                <span>Already User? <a class="text-success" routerLink="/login">Login</a> </span>
-            </form>
+<style>
+  .register-wrapper {
+    padding: 5rem 1rem;
+  }
+
+  .register-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2.5rem;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .register-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #198754;
+  }
+
+  .register-brand i {
+    color: #ffc107;
+    margin-right: 8px;
+  }
+
+  .input-group-custom {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-group-custom i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #198754;
+    opacity: 0.7;
+  }
+
+  .input-group-custom input {
+    padding-left: 42px;
+    border-radius: 10px;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    border: 1px solid #dee2e6;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .input-group-custom input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+  }
+
+  .error-text {
+    font-size: 12px;
+    display: block;
+    margin-top: 4px;
+    animation: fadeInUp 0.25s ease;
+  }
+
+  .btn-register {
+    border-radius: 10px;
+    padding: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(25, 135, 84, 0.3);
+  }
+
+  .login-link {
+    color: #198754;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .login-link:hover {
+    color: #14532d;
+    text-decoration: underline;
+  }
+
+  .register-info {
+    animation: fadeInUp 0.7s ease 0.15s backwards;
+  }
+
+  .register-info h1 {
+    font-weight: 700;
+  }
+
+  .register-info ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .register-info ul li {
+    padding: 0.7rem 0 0.7rem 2.2rem;
+    position: relative;
+    font-size: 1.05rem;
+    color: #444;
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  .register-info ul li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #198754;
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    width: 28px;
+    height: 28px;
+    background: #e9f7ef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+  }
+
+  .register-info ul li:hover {
+    transform: translateX(6px);
+    color: #198754;
+  }
+
+  @media (max-width: 768px) {
+    .register-wrapper {
+      padding: 3rem 1rem;
+    }
+
+    .register-card {
+      padding: 2.2rem 1.5rem;
+      border-radius: 14px;
+      margin-bottom: 2rem;
+    }
+
+    .register-info {
+      text-align: center;
+    }
+
+    .register-info ul li {
+      text-align: left;
+    }
+  }
+</style>
+
+<div class="container register-wrapper">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+            <div class="register-card">
+                <h1 class="register-brand mb-4 text-center"><i class="fa-solid fa-utensils"></i>NUTRINEST</h1>
+
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
+                    <div class="input-group-custom">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="username" formControlName="username" placeholder="Username"
+                            class="form-control">
+                        @if(registerForm.get("username").errors && registerForm.get("username").touched) {
+                        <span class="text-danger error-text">*Invalid input</span>}
+                    </div>
+
+                    <div class="input-group-custom">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="text" name="email" formControlName="email" placeholder="Email"
+                            class="form-control">
+                        @if(registerForm.get("email").errors && registerForm.get("email").touched) {
+                        <span class="text-danger error-text">*Invalid input</span>}
+                    </div>
+
+                    <div class="input-group-custom">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="password" formControlName="password" placeholder="Password"
+                            class="form-control">
+                        @if(registerForm.get("password").errors && registerForm.get("password").touched) {
+                        <span class="text-danger error-text">*Invalid input</span>}
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-register w-100 mt-2 mb-4">Register</button>
+
+                    <p class="text-center mb-0">Already a user? <a class="login-link" routerLink="/login">Login</a></p>
+                </form>
+            </div>
         </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-5 d-flex justify-content-center align-items-center">
-            <div>
+
+        <div class="col-lg-6">
+            <div class="register-info text-center text-lg-start">
                 <h1>Create an account</h1>
-                <h4 class="my-5">What you will get?</h4>
-                <ul>
-                    <li>Different reccipe</li>
+                <h4 class="my-4 fw-semibold" style="color:#198754;">What you will get?</h4>
+                <ul class="d-inline-block d-lg-block text-start">
+                    <li>Different recipes</li>
                     <li>Easy way to cook</li>
-                    <li>Save your favourite recipe</li>
-                    <li>Download your recipe</li>
+                    <li>Save your favourite recipes</li>
+                    <li>Download your recipes</li>
                 </ul>
             </div>
         </div>

@@ -1,33 +1,197 @@
+<style>
+  .about-hero {
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #198754, #14532d);
+  }
+
+  .about-hero .img-side {
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-hero img {
+    animation: floatImg 4s ease-in-out infinite;
+  }
+
+  @keyframes floatImg {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .about-hero h1 {
+    font-weight: 700;
+    animation: fadeInUp 0.7s ease;
+  }
+
+  .about-hero p {
+    animation: fadeInUp 0.7s ease 0.15s backwards;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .about-us-section {
+    padding: 4rem 0;
+  }
+
+  .about-us-section h1 {
+    font-weight: 700;
+    position: relative;
+  }
+
+  .about-us-section h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #198754;
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+
+  .about-us-section p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  .about-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .about-list li {
+    padding: 0.6rem 0 0.6rem 2.2rem;
+    position: relative;
+    color: #333;
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  .about-list li::before {
+    content: '\f2e7';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #198754;
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 28px;
+    height: 28px;
+    background: #e9f7ef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+  }
+
+  .about-list li:hover {
+    transform: translateX(6px);
+    color: #198754;
+  }
+
+  .btn-about {
+    border-radius: 50px;
+    padding: 0.65rem 1.8rem;
+    font-weight: 600;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-about:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(25, 135, 84, 0.3);
+  }
+
+  .about-img-side {
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .about-img-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    transition: transform 0.4s ease;
+  }
+
+  .about-img-side:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      text-align: center;
+    }
+
+    .about-hero .img-side {
+      padding: 2rem;
+    }
+
+    .about-hero img {
+      width: 60% !important;
+    }
+
+    .about-hero .p-5 {
+      padding: 2rem !important;
+    }
+
+    .about-us-section {
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    .about-us-section h1::after {
+      margin: 12px auto 0;
+    }
+
+    .about-list li {
+      text-align: left;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .about-img-side {
+      margin-top: 2rem;
+    }
+  }
+</style>
+
 <app-header></app-header>
 
 <div class="container">
-    <div class="row mt-2">
-        <div class="col-md-6 bg-success d-flex justify-content-center align-items-center">
+    <div class="row mt-4 about-hero align-items-center">
+        <div class="col-md-6 img-side">
            <img class="w-50" src="https://static.vecteezy.com/system/resources/thumbnails/024/991/947/small_2x/fresh-fruit-basket-fresh-fruits-basket-colorful-fruits-green-fruits-transparent-background-ai-generated-png.png" alt="">
         </div>
         <div class="col-md-6 p-5">
-            <h1>Welcome To Cookpedia</h1>
-            <p>Discover 100+ recipe in your hand with the best recipe.
-                Help you to find easiet way to cook.
+            <h1 class="text-white">Welcome To NUTRINEST</h1>
+            <p class="text-white mt-3">Discover 100+ recipes at your fingertips. We help you find the easiest
+                way to cook healthy, delicious meals every day.
             </p>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row about-us-section align-items-center">
         <div class="col-md-6 d-flex justify-content-center align-items-center flex-column">
             <div>
                 <h1>About Us</h1>
-                <p class="my-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa nostrum autem fugiat mollitia, ex quod assumenda ratione, quibusdam nemo nam pariatur ad nihil earum, exercitationem officiis totam voluptatum molestias consequuntur.</p>
-                <ul class="mb-5">
-                    <li>jjjjjjjjjjjjjjjjjjjjj</li>
-                    <li>jjjjjjjjjjjjjjjjjjjjj</li>
-                    <li>jjjjjjjjjjjjjjjjjjjjj</li>
-                    <li>jjjjjjjjjjjjjjjjjjjjj</li>
+                <p class="my-4">NUTRINEST started with a simple idea — cooking shouldn't be complicated. We bring together recipes from home kitchens and professional chefs alike, so anyone can cook confidently, no matter their skill level. From quick weekday meals to weekend specials, we've got a recipe for every craving.</p>
+                <ul class="about-list mb-4">
+                    <li>Handpicked recipes from around the world</li>
+                    <li>Step-by-step instructions anyone can follow</li>
+                    <li>Save and organize your favourite recipes</li>
+                    <li>New recipes added every week</li>
                 </ul>
-                <button class="btn btn-success">Know more about us</button>
+                <button routerLink="/all-recipes" class="btn btn-success btn-about">Know more about us</button>
             </div>
         </div>
-        <div class="col-md-6 ">
-            <img  src="https://tse4.mm.bing.net/th/id/OIP.td7RXwmTZGNwTfIh-R-KzAHaJx?rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
+        <div class="col-md-6 about-img-side">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.td7RXwmTZGNwTfIh-R-KzAHaJx?rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
         </div>
     </div>
 </div>
