@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class ApiService {
 
-  serverURL: string = "http://localhost:4000"
+  // serverURL: string = "http://localhost:4000"
+  serverURL: string = "https://nutrinest-mean.onrender.com"
 
   constructor(private http: HttpClient) { }
 
