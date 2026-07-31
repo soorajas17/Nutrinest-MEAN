@@ -1,3 +1,99 @@
+<style>
+    .admin-topbar {
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        padding: 1.2rem 1.8rem;
+    }
+
+    .admin-topbar h3 {
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #333;
+    }
+
+    .admin-topbar h3 i {
+        color: #198754;
+    }
+
+    .table-wrap {
+        padding: 2rem;
+    }
+
+    .styled-table {
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+        border: none !important;
+    }
+
+    .styled-table thead th {
+        background: linear-gradient(135deg, #198754, #14532d) !important;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        padding: 1rem;
+    }
+
+    .styled-table tbody td {
+        padding: 0.9rem 1rem;
+        vertical-align: middle;
+        border-color: #eee;
+    }
+
+    .styled-table tbody tr {
+        transition: background 0.25s ease;
+    }
+
+    .styled-table tbody tr:hover {
+        background: #f4f9f6;
+    }
+
+    .user-name-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #198754, #14532d);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.95rem;
+        flex-shrink: 0;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+    }
+
+    .empty-state i {
+        color: #dc3545;
+        opacity: 0.6;
+    }
+
+    .empty-state p {
+        color: #dc3545;
+        font-weight: 600;
+        margin: 1rem 0 0;
+    }
+
+    @media (max-width: 768px) {
+        .table-wrap {
+            padding: 1rem;
+        }
+    }
+</style>
+
 <app-admin-header></app-admin-header>
 
 <div class="container-fluid p-0" style="overflow-x:hidden;">
@@ -6,34 +102,40 @@
             <app-admin-sidebar></app-admin-sidebar>
         </div>
         <div class="col-md-10 ps-0">
-            <div class="row bg-warning p-3">
+            <div class="row admin-topbar">
                 <h3><i class="fa-solid fa-bars"></i>User List</h3>
             </div>
-            <div class="px-5 my-3 table-responsive">
-                <table class="table table-bordered shadow">
+            <div class="table-wrap table-responsive">
+                @if (allUsers.length>0) {
+                <table class="table styled-table">
                     <thead>
                         <tr>
-                            <th class="bg-success text-light">SL:No</th>
-                            <th class="bg-success text-light">Name</th>
-                            <th class="bg-success text-light">Email</th>
+                            <th class="text-center">SL No</th>
+                            <th>Name</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (allUsers.length>0) {
                         @for (item of allUsers; track $index) {
                         <tr>
-                            <td>{{$index+1}}</td>
-                            <td>{{item.username}}</td>
+                            <td class="text-center">{{$index+1}}</td>
+                            <td>
+                                <div class="user-name-cell">
+                                    <div class="user-avatar">{{item.username.charAt(0)}}</div>
+                                    {{item.username}}
+                                </div>
+                            </td>
                             <td>{{item.email}}</td>
                         </tr>
                         }
-
-                        }@else {
-                        <h3 class="text-danger p-3">No users....</h3>
-                        }
                     </tbody>
                 </table>
-
+                }@else {
+                <div class="empty-state">
+                    <i class="fa-solid fa-user fa-2x"></i>
+                    <p>No users yet...</p>
+                </div>
+                }
             </div>
         </div>
     </div>

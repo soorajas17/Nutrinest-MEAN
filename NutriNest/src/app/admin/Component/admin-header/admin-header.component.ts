@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-header',
@@ -10,4 +12,20 @@ import { RouterLink } from "@angular/router";
 })
 export class AdminHeaderComponent {
 
+  constructor(private router: Router) { }
+  logout() {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to logout!",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Logout",
+      cancelButtonText: "Cancel"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        sessionStorage.clear()
+        this.router.navigateByUrl('/login')
+      }
+    })
+  }
 }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../users/component/header/header.component";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ApiService } from '../../services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,13 @@ import { ApiService } from '../../services/api.service';
 export class HomeComponent {
 
   homeRecipes: any = []
-  allTestimonials:any=[]
+  allTestimonials: any = []
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.getHomeRecipes()
-     this.getTestimonials()
+    this.getTestimonials()
   }
 
   getHomeRecipes() {
@@ -28,7 +29,7 @@ export class HomeComponent {
         // console.log(res);
         this.homeRecipes = res
         console.log(this.homeRecipes);
-        
+
       }, error: (err: any) => {
         console.log(err);
 
@@ -37,16 +38,30 @@ export class HomeComponent {
   }
 
   // getTestimonials
-  getTestimonials(){
+  getTestimonials() {
     this.api.getAllTestimonialApi().subscribe({
       next: (res: any) => {
         console.log(res);
-        this.allTestimonials=res
+        this.allTestimonials = res
       }, error: (err: any) => {
         console.log(err);
 
       }
     })
   }
-  
+
+  // goToRecipes
+  goToRecipes() {
+    const existingUser = sessionStorage.getItem("existingUser")
+    if (existingUser) {
+      this.router.navigateByUrl("/all-recipes")
+    } else {
+      Swal.fire({
+        title: "Oops!",
+        text: "Please login to explore recipes",
+        icon: "warning"
+      })
+    }
+  }
+
 }

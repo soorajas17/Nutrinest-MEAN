@@ -1,7 +1,58 @@
-<div class="bg-success text-light p-3 h-100 min-vh-100" style="cursor: pointer;">
-    <h5 routerLink="/admin-dashboard"> <i class="fa-solid fa-bars"></i> Dashboard</h5>
-    <h5 routerLink="/admin-recipelist" class="mt-4"> <i class="fa-solid fa-bowl-rice"></i> Recipes</h5>
-    <h5 routerLink="/admin-userlist" class="mt-4"> <i class="fa-solid fa-user"></i> Users</h5>
-    <h5 routerLink="/admin-downloadlist" class="mt-4"> <i class="fa-solid fa-download"></i> Downloads</h5>
-    <h5 routerLink="/admin-feedback" class="mt-4"> <i class="fa-solid fa-message"></i> Requests</h5>
+<style>
+    .admin-sidebar {
+        background: linear-gradient(180deg, #198754, #14532d);
+        padding: 1.8rem 1.2rem;
+    }
+
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1.05rem;
+        font-weight: 500;
+        padding: 0.7rem 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    .sidebar-link i {
+        width: 20px;
+        text-align: center;
+        color: #ffe08a;
+    }
+
+    .sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        transform: translateX(4px);
+    }
+
+    .sidebar-link.active {
+        background: #fff;
+        color: #198754 !important;
+    }
+
+    .sidebar-link.active i {
+        color: #198754;
+    }
+</style>
+
+<div class="admin-sidebar text-light h-100 min-vh-100">
+    <h5 routerLink="/admin-dashboard" routerLinkActive="active" class="sidebar-link">
+        <i class="fa-solid fa-bars"></i>Dashboard
+    </h5>
+    <h5 routerLink="/admin-recipelist" routerLinkActive="active" class="sidebar-link mt-3">
+        <i class="fa-solid fa-bowl-rice"></i>Recipes
+    </h5>
+    <h5 routerLink="/admin-userlist" routerLinkActive="active" class="sidebar-link mt-3">
+        <i class="fa-solid fa-user"></i>Users
+    </h5>
+    <h5 routerLink="/admin-downloadlist" routerLinkActive="active" class="sidebar-link mt-3">
+        <i class="fa-solid fa-download"></i>Downloads
+    </h5>
+    <h5 routerLink="/admin-feedback" routerLinkActive="active" class="sidebar-link mt-3">
+        <i class="fa-solid fa-message"></i>Requests
+    </h5>
 </div>

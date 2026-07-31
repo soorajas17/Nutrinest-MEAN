@@ -14,6 +14,7 @@ import { AdminUserlistComponent } from './admin/admin-userlist/admin-userlist.co
 import { AdminDownloadlistComponent } from './admin/admin-downloadlist/admin-downloadlist.component';
 import { AdminFeedbacklistComponent } from './admin/admin-feedbacklist/admin-feedbacklist.component';
 import { AdminRecipelistComponent } from './admin/admin-recipelist/admin-recipelist.component';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -30,11 +31,11 @@ export const routes: Routes = [
 
 
     // admin
-    {path:"admin-dashboard",component:AdminDashboardComponent},
-    {path:"admin-userlist",component:AdminUserlistComponent},
-    {path:"admin-downloadlist",component:AdminDownloadlistComponent},
-    {path:"admin-feedback",component:AdminFeedbacklistComponent},
-    {path:"admin-recipelist",component:AdminRecipelistComponent},
+    { path: "admin-dashboard", component: AdminDashboardComponent, canActivate: [adminGuard] },
+    { path: "admin-userlist", component: AdminUserlistComponent, canActivate: [adminGuard] },
+    { path: "admin-downloadlist", component: AdminDownloadlistComponent, canActivate: [adminGuard] },
+    { path: "admin-feedback", component: AdminFeedbacklistComponent, canActivate: [adminGuard] },
+    { path: "admin-recipelist", component: AdminRecipelistComponent, canActivate: [adminGuard] },
 
 
     // 

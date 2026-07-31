@@ -1,3 +1,119 @@
+<style>
+  .admin-topbar {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 1.2rem 1.8rem;
+  }
+
+  .admin-topbar h3 {
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+  }
+
+  .admin-topbar h3 i {
+    color: #198754;
+  }
+
+  .table-wrap {
+    padding: 2rem;
+  }
+
+  .styled-table {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+    border: none !important;
+  }
+
+  .styled-table thead th {
+    background: linear-gradient(135deg, #198754, #14532d) !important;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 1rem;
+    white-space: nowrap;
+  }
+
+  .styled-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-color: #eee;
+  }
+
+  .styled-table tbody tr {
+    transition: background 0.25s ease;
+  }
+
+  .styled-table tbody tr:hover {
+    background: #f4f9f6;
+  }
+
+  .message-cell {
+    max-width: 280px;
+    white-space: normal;
+    color: #555;
+  }
+
+  .btn-approve,
+  .btn-reject {
+    border-radius: 50px;
+    font-weight: 600;
+    padding: 0.4rem 1.1rem;
+    font-size: 0.85rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-approve:hover,
+  .btn-reject:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  }
+
+  .status-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-block;
+  }
+
+  .status-approved {
+    background: #e9f7ef;
+    color: #198754;
+  }
+
+  .status-rejected {
+    background: #fdecea;
+    color: #dc3545;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+  }
+
+  .empty-state i {
+    color: #dc3545;
+    opacity: 0.6;
+  }
+
+  .empty-state p {
+    color: #dc3545;
+    font-weight: 600;
+    margin: 1rem 0 0;
+  }
+
+  @media (max-width: 768px) {
+    .table-wrap {
+      padding: 1rem;
+    }
+  }
+</style>
+
 <app-admin-header></app-admin-header>
 
 <div class="container-fluid p-0" style="overflow-x:hidden;">
@@ -6,52 +122,54 @@
             <app-admin-sidebar></app-admin-sidebar>
         </div>
         <div class="col-md-10 ps-0">
-            <div class="row bg-warning p-3">
+            <div class="row admin-topbar">
                 <h3><i class="fa-solid fa-bars"></i>Request List</h3>
             </div>
-            <div class="px-5 my-3 table-responsive">
-                <table class="table table-bordered shadow">
+            <div class="table-wrap table-responsive">
+                @if (allTestimonials.length>0) {
+                <table class="table styled-table">
                     <thead>
                         <tr>
-                            <th class="bg-success text-light">SL:No</th>
-                            <th class="bg-success text-light">User Name</th>
-                            <th class="bg-success text-light">User Email</th>
-                            <th class="bg-success text-light">Message</th>
-                            <th class="bg-success text-light">Status</th>
+                            <th>SL No</th>
+                            <th>User Name</th>
+                            <th>User Email</th>
+                            <th>Message</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (allTestimonials.length>0) {
                         @for (item of allTestimonials; track $index) {
                         <tr>
                             <td>{{$index+1}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.email}}</td>
-                            <td>{{item.message}}</td>
-                            <td class="d-flex p-4">
+                            <td class="message-cell">{{item.message}}</td>
+                            <td>
                                 @if (item.status=="pending") {
-                                <button (click)="updateTestimonials(item._id,'approved')" class="btn btn-success "
-                                    type="button">Approve</button>
-                                <button (click)="updateTestimonials(item._id,'rejected')" class="btn btn-danger ms-2"
-                                    type="button">Reject</button>
+                                <div class="d-flex">
+                                    <button (click)="updateTestimonials(item._id,'approved')" class="btn btn-success btn-approve"
+                                        type="button">Approve</button>
+                                    <button (click)="updateTestimonials(item._id,'rejected')" class="btn btn-danger btn-reject ms-2"
+                                        type="button">Reject</button>
+                                </div>
                                 }@else {
                                 @if (item.status=="approved") {
-                                <h5 class="text-success">Approved</h5>
+                                <span class="status-badge status-approved">Approved</span>
                                 }@else {
-                                <h5 class="text-danger">Rejected</h5>
+                                <span class="status-badge status-rejected">Rejected</span>
                                 }
                                 }
-
                             </td>
                         </tr>
                         }
-                        }@else {
-                        <h3 class="text-danger">No Requests....</h3>
-                        }
-
                     </tbody>
                 </table>
-
+                }@else {
+                <div class="empty-state">
+                    <i class="fa-solid fa-message fa-2x"></i>
+                    <p>No requests yet...</p>
+                </div>
+                }
             </div>
         </div>
     </div>

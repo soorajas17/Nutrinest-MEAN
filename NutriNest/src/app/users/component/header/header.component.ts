@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,20 @@ export class HeaderComponent {
       this.isLogin = true
     }
   }
+
+  // goToRecipes
+    goToRecipes() {
+      const existingUser = sessionStorage.getItem("existingUser")
+      if (existingUser) {
+        this.router.navigateByUrl("/all-recipes")
+      } else {
+        Swal.fire({
+          title: "Oops!",
+          text: "Please login to explore recipes",
+          icon: "warning"
+        })
+      }
+    }
 
   Logout() {
     sessionStorage.removeItem("existingUser")

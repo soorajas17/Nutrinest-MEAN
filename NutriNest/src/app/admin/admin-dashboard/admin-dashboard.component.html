@@ -1,3 +1,88 @@
+<style>
+  .admin-topbar {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 1.2rem 1.8rem;
+  }
+
+  .admin-topbar h3 {
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+  }
+
+  .admin-topbar h3 i {
+    color: #198754;
+  }
+
+  .stats-row {
+    padding: 1.5rem;
+  }
+
+  .stat-box {
+    border-radius: 16px;
+    padding: 1.8rem 1.5rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .stat-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .stat-box i.bg-icon {
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    font-size: 4.5rem;
+    opacity: 0.18;
+  }
+
+  .stat-box .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stat-box .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .stat-users {
+    background: linear-gradient(135deg, #17a2b8, #0f6674);
+  }
+
+  .stat-recipes {
+    background: linear-gradient(135deg, #dc3545, #8f1c28);
+  }
+
+  .stat-downloads {
+    background: linear-gradient(135deg, #0d6efd, #06398a);
+  }
+
+  .stat-notifications {
+    background: linear-gradient(135deg, #6c757d, #3f4347);
+  }
+
+  @media (max-width: 768px) {
+    .stats-row {
+      padding: 0.8rem;
+    }
+  }
+</style>
+
 <app-admin-header></app-admin-header>
 
 <div class="container-fluid p-0" style="overflow-x:hidden;">
@@ -6,28 +91,36 @@
             <app-admin-sidebar></app-admin-sidebar>
         </div>
         <div class="col-md-10 ps-0">
-            <div class="row bg-warning p-3">
+            <div class="row admin-topbar">
                 <h3><i class="fa-solid fa-bars"></i>Dashboard</h3>
             </div>
-            <div class="row">
-                <div class="col-md-3 p-4">
-                    <div class="bg-info py-4 px-3 rounded text-light">
-                        <h4><i class="fa-solid fa-user me-4"></i>Users {{allUsers}}+</h4>
+            <div class="row stats-row">
+                <div class="col-md-3 p-3">
+                    <div class="stat-box stat-users">
+                        <i class="fa-solid fa-user bg-icon"></i>
+                        <p class="stat-label"><i class="fa-solid fa-user"></i>Users</p>
+                        <p class="stat-value">{{allUsers}}+</p>
                     </div>
                 </div>
-                <div class="col-md-3 p-4">
-                    <div class="bg-danger py-4 px-3 rounded text-light">
-                        <h4><i class="fa-solid fa-bowl-rice me-4"></i>Recipes {{allRecipes}}+</h4>
+                <div class="col-md-3 p-3">
+                    <div class="stat-box stat-recipes">
+                        <i class="fa-solid fa-bowl-rice bg-icon"></i>
+                        <p class="stat-label"><i class="fa-solid fa-bowl-rice"></i>Recipes</p>
+                        <p class="stat-value">{{allRecipes}}+</p>
                     </div>
                 </div>
-                <div class="col-md-3 p-4">
-                    <div class="bg-primary py-4 px-3 rounded text-light">
-                        <h4><i class="fa-solid fa-download me-4"></i>Downloads {{allDownloads}}+</h4>
+                <div class="col-md-3 p-3">
+                    <div class="stat-box stat-downloads">
+                        <i class="fa-solid fa-download bg-icon"></i>
+                        <p class="stat-label"><i class="fa-solid fa-download"></i>Downloads</p>
+                        <p class="stat-value">{{allDownloads}}+</p>
                     </div>
                 </div>
-                <div class="col-md-3 p-4">
-                    <div class="bg-secondary py-4 px-3 rounded text-light">
-                        <h4><i class="fa-solid fa-message me-4"></i>Notification {{allTestimonials}}+</h4>
+                <div class="col-md-3 p-3">
+                    <div class="stat-box stat-notifications">
+                        <i class="fa-solid fa-message bg-icon"></i>
+                        <p class="stat-label"><i class="fa-solid fa-message"></i>Notification</p>
+                        <p class="stat-value">{{allTestimonials}}+</p>
                     </div>
                 </div>
             </div>

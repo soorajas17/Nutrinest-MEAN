@@ -215,7 +215,7 @@
             <p class="text-light mt-4">Discover 100+ recipes in your hand with the best recipe. Help you find the
                 easiest
                 way to cook.</p>
-            <button routerLink="/all-recipes" class="btn btn-warning mt-2">Explore Our Recipes</button>
+            <button (click)="goToRecipes()" class="btn btn-warning mt-2">Explore Our Recipes</button>
         </div>
         <div class="col-lg-6 text-center">
             <img class="w-75"
@@ -229,7 +229,7 @@
         <h1 class="section-heading">Popular Recipe Of The Week</h1>
         <div class="d-flex justify-content-between align-items-center my-5">
             <p class="mb-0">Our most recipes of the week</p>
-            <a routerLink="all-recipes" class="text-success fw-semibold text-decoration-none">View All &rarr;</a>
+            <a (click)="goToRecipes()"  style="cursor: pointer;" class="text-success fw-semibold text-decoration-none">View All &rarr;</a>
         </div>
     </div>
     <div class="row">

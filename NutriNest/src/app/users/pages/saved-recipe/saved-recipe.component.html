@@ -1,16 +1,105 @@
+<style>
+    .saved-heading {
+        font-weight: 700;
+        position: relative;
+        display: inline-block;
+        margin-top: 2rem;
+    }
+
+    .saved-heading::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: #198754;
+        border-radius: 2px;
+        margin-top: 10px;
+    }
+
+    .saved-card {
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08) !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        padding: 0 !important;
+        margin-bottom: 1.8rem;
+    }
+
+    .saved-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .saved-card img {
+        cursor: pointer;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .saved-card:hover img {
+        transform: scale(1.06);
+    }
+
+    .saved-card-footer {
+        padding: 0.9rem 1rem;
+    }
+
+    .saved-card-footer p {
+        font-weight: 600;
+        margin: 0;
+        color: #333;
+    }
+
+    .btn-delete {
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+
+    .btn-delete:hover {
+        transform: scale(1.1);
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .no-saved {
+        background: #f4f9f6;
+        border-radius: 14px;
+        padding: 3rem;
+        text-align: center;
+    }
+
+    .no-saved i {
+        color: #198754;
+    }
+
+    .no-saved p {
+        color: #198754;
+        font-weight: 600;
+        margin: 1rem 0 0;
+    }
+</style>
+
 <app-header></app-header>
 
 <div class="container">
-    <h1>Saved Recipes</h1>
-    <div class="row my-5">
+    <h1 class="saved-heading">Saved Recipes</h1>
+    <div class="row my-4">
         @if (savedRecipes.length>0) {
         @for (item of savedRecipes; track $index) {
-        <div class="col-md-3">
-            <div class="shadow p-4 rounded">
+        <div class="col-md-3 col-sm-6">
+            <div class="shadow saved-card">
                 <img (click)="viewRecipe(item.recipeId)" class="w-100" [src]="item.image" alt="">
-                <div class="d-flex justify-content-around mt-3">
-                    <p class="text-center">{{item.name}}</p>
-                    <button (click)="deleteASavedRecipe(item._id)" type="button" class="btn btn-outline-danger">
+                <div class="d-flex justify-content-between align-items-center saved-card-footer">
+                    <p>{{item.name}}</p>
+                    <button (click)="deleteASavedRecipe(item._id)" type="button"
+                        class="btn btn-outline-danger btn-delete">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
@@ -18,8 +107,12 @@
         </div>
         }
         }@else {
-        <p>No saved items.....</p>
+        <div class="col-12">
+            <div class="no-saved">
+                <i class="fa-solid fa-heart fa-2x"></i>
+                <p>No saved recipes yet — start exploring and save your favourites!</p>
+            </div>
+        </div>
         }
     </div>
-
 </div>
